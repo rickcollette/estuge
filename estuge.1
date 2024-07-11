@@ -1,0 +1,102 @@
+.TH ESTUGE 1 "July 2024" "version 1.1.1" "ESTUGE MANUAL"
+.SH NAME
+estuge \- Lightweight markdown to HTML static website generator
+
+.SH SYNOPSIS
+.B estuge
+.I input-folder [template-name]
+
+.SH DESCRIPTION
+.B estuge
+is a lightweight tool for converting Markdown files into static HTML websites using customizable templates.
+
+.SH USAGE
+The command requires at least one argument, the input folder containing Markdown (.md) files to be converted. Optionally, a template name can be specified.
+
+.SH OPTIONS
+.TP
+.I input-folder
+The directory containing the Markdown files to be converted.
+.TP
+.I template-name
+(Optional) The name of the template to use for generating the HTML files. If not specified, the default template 'base' will be used.
+
+.SH EXAMPLES
+.B
+go run main.go content base
+
+.SH FILES
+.TP
+.I templates/<template-name>/config.yaml
+The YAML configuration file for the site. It includes settings like site name, description, and social media links.
+.TP
+.I templates/<template-name>/main.tmpl
+The main template file used to generate the HTML pages.
+.TP
+.I templates/<template-name>/header.tmpl
+The template file for the header section of the HTML pages.
+.TP
+.I templates/<template-name>/footer.tmpl
+The template file for the footer section of the HTML pages.
+.TP
+.I templates/<template-name>/style/style.css
+The CSS file for styling the HTML pages.
+.TP
+.I templates/<template-name>/js
+The directory containing JavaScript files.
+.TP
+.I templates/<template-name>/images
+The directory containing image files.
+
+.SH CONFIGURATION
+The configuration file (config.yaml) in the template directory should include the following fields:
+.TP
+.B SiteName
+The name of the website.
+.TP
+.B SiteDescription
+A brief description of the website.
+.TP
+.B SiteTitle
+The title of the website.
+.TP
+.B FontSet
+The font set used for the website.
+.TP
+.B NumberOfSlides
+The number of slides for any slideshow component.
+.TP
+.B SlideChangeInterval
+The interval time (in seconds) for changing slides.
+.TP
+.B SlideFolder
+The folder containing slide images.
+.TP
+.B SlidePrefix
+The prefix for slide image files.
+.TP
+.B SocialX
+The URL for the social media platform X.
+.TP
+.B SocialFB
+The URL for the social media platform Facebook.
+.TP
+.B SocialYT
+The URL for the social media platform YouTube.
+
+.SH EXIT STATUS
+.B estuge
+exits with a status of 0 on success, and a non-zero status if an error occurs.
+
+.SH AUTHORS
+Rick Collette <megalith@root.sh>
+
+.SH COPYRIGHT AND LICENSE
+.B estuge
+is released under the MIT License.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

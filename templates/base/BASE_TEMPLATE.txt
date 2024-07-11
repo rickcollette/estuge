@@ -1,0 +1,303 @@
+.
+├── BASE_TEMPLATE.txt
+├── config.yaml
+├── footer.tmpl
+├── genbase.sh
+├── header.tmpl
+├── images
+│   └── image.png
+├── js
+│   └── helper_funcs.js
+├── main.tmpl
+└── style
+    └── style.css
+
+3 directories, 9 files
+config.yaml
+SiteName: "MySite"
+SiteDescription: "This is my site"
+SiteTitle: "MySite"
+FontSet: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" # FontAwesome CDN
+
+# Slider Info
+NumberOfSlides: 3
+SlideChangeInterval: 3000 # Milliseconds
+SlideFolder: "images/slides"
+SlidePrefix: "slide_" # Results in slide_[1...${NumberOfSlides}].jpg
+
+# Footer Info
+SocialX: "https://twitter.com/youraccount"
+SocialFB: "https://facebook.com/youraccount"
+SocialYT: "https://youtube.com/youraccount"
+===========
+footer.tmpl
+<footer>
+    <p>&copy; 2024 {{.Config.SiteName}}. All rights reserved.</p>
+    <ul>
+        <li><a href="{{.Config.SocialX}}" target="_blank"><i class="fab fa-twitter"></i>Twitter</a></li>
+        <li><a href="{{.Config.SocialFB}}" target="_blank"><i class="fab fa-facebook-f"></i>Facebook</a></li>
+        <li><a href="{{.Config.SocialYT}}" target="_blank"><i class="fab fa-youtube"></i>YouTube</a></li>
+    </ul>
+</footer>
+===========
+header.tmpl
+<header>
+    <nav>
+        <ul>
+            {{range $section, $links := .}}
+            <li class="nav-item {{if gt (len $links) 1}}dropdown{{end}}">
+                <a href="{{index $links 0}}" class="nav-link {{if gt (len $links) 1}}dropdown-toggle{{end}}" {{if gt (len $links) 1}}data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"{{end}}>{{$section | title}}</a>
+                {{if gt (len $links) 1}}
+                <ul class="dropdown-menu">
+                    {{range $i, $link := $links}}
+                    {{if gt $i 0}}
+                    <li><a href="{{$link}}" class="dropdown-item">{{index (split $link "/") 2 | trimExtension | title}}</a></li>
+                    {{end}}
+                    {{end}}
+                </ul>
+                {{end}}
+            </li>
+            {{end}}
+        </ul>
+    </nav>
+</header>
+===========
+main.tmpl
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{.Config.SiteTitle}}</title>
+    <meta name="description" content="{{.Config.SiteDescription}}">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="{{.Config.FontSet}}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+</head>
+<body>
+    {{.Header}}
+    <div class="container">
+        <div class="slider"></div> <!-- Slider container -->
+        {{.Content}}
+    </div>
+    {{.Footer}}
+    <script src="/js/script.js"></script>
+</body>
+</html>
+===========
+js/helper_funcs.js
+document.addEventListener('DOMContentLoaded', function() {
+    // Dropdown menu functionality
+    var dropdowns = document.querySelectorAll('.dropdown-toggle');
+
+    dropdowns.forEach(function(dropdown) {
+        dropdown.addEventListener('click', function(event) {
+            event.preventDefault();
+            var menu = this.nextElementSibling;
+            if (menu.style.display === 'block') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'block';
+            }
+        });
+    });
+
+    document.addEventListener('click', function(event) {
+        dropdowns.forEach(function(dropdown) {
+            var menu = dropdown.nextElementSibling;
+            if (!dropdown.contains(event.target) && menu.style.display === 'block') {
+                menu.style.display = 'none';
+            }
+        });
+    });
+
+    // Slider functionality
+    var sliderContainer = document.querySelector('.slider');
+    var slides = [];
+    var currentSlide = 0;
+
+    // Preload images
+    function preloadImages(imagePaths, callback) {
+        var loadedImages = 0;
+        imagePaths.forEach(function(path, index) {
+            var img = new Image();
+            img.src = path;
+            img.onload = function() {
+                loadedImages++;
+                slides[index] = img;
+                if (loadedImages === imagePaths.length) {
+                    callback();
+                }
+            };
+        });
+    }
+
+    // Change slide
+    function changeSlide() {
+        sliderContainer.innerHTML = '';
+        sliderContainer.appendChild(slides[currentSlide]);
+        currentSlide = (currentSlide + 1) % slides.length;
+    }
+
+    // Get slide paths and initialize slider
+    fetch('/images/slides')
+        .then(response => response.json())
+        .then(data => {
+            var imagePaths = data.map(filename => `/images/slides/${filename}`);
+            preloadImages(imagePaths, function() {
+                changeSlide();
+                setInterval(changeSlide, 3000); // Change slide every 3 seconds
+            });
+        })
+        .catch(error => console.error('Error fetching slide images:', error));
+});
+===========
+style/style.css
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #000; /* Black text */
+    background-color: #fff; /* White background */
+    line-height: 1.6;
+}
+
+header {
+    background-color: #007BFF; /* Blue header */
+    color: #fff; /* White text in header */
+    padding: 10px 0;
+}
+
+header nav ul {
+    list-style: none;
+    text-align: center;
+}
+
+header nav ul li {
+    display: inline-block;
+    margin: 0 10px;
+    position: relative; /* Added for dropdown */
+}
+
+header nav ul li a {
+    color: #fff; /* White text for links */
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+header nav ul li a:hover {
+    background-color: #fff; /* White background on hover */
+    color: #007BFF; /* Blue text on hover */
+}
+
+a {
+    color: #007BFF; /* Proper color for links */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #0056b3; /* Darker blue on hover */
+}
+
+footer {
+    background-color: #007BFF; /* Blue footer */
+    color: #fff; /* White text in footer */
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+    display: flex;
+    justify-content: center;
+}
+
+footer ul li {
+    margin: 0 10px;
+}
+
+footer ul li a {
+    color: #fff; /* White text for social links */
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+footer ul li a:hover {
+    background-color: #fff; /* White background on hover */
+    color: #007BFF; /* Blue text on hover */
+}
+
+footer ul li a i {
+    margin-right: 5px;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 20px 0;
+}
+
+p {
+    margin: 10px 0;
+}
+
+/* Dropdown Menu */
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    color: #007BFF;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    text-align: left;
+    padding: 10px 0;
+}
+
+.dropdown-item {
+    color: #007BFF;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-item:hover {
+    background-color: #007BFF;
+    color: #fff;
+}
+
+/* Slider */
+.slider {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    position: relative;
+}
+
+.slider img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+===========

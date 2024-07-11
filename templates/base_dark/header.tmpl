@@ -1,0 +1,20 @@
+<header>
+    <nav>
+        <ul>
+            {{range $section, $links := .}}
+            <li class="nav-item {{if gt (len $links) 1}}dropdown{{end}}">
+                <a href="{{index $links 0}}" class="nav-link {{if gt (len $links) 1}}dropdown-toggle{{end}}" {{if gt (len $links) 1}}data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"{{end}}>{{$section | title}}</a>
+                {{if gt (len $links) 1}}
+                <ul class="dropdown-menu">
+                    {{range $i, $link := $links}}
+                    {{if gt $i 0}}
+                    <li><a href="{{$link}}" class="dropdown-item">{{index (split $link "/") 2 | trimExtension | title}}</a></li>
+                    {{end}}
+                    {{end}}
+                </ul>
+                {{end}}
+            </li>
+            {{end}}
+        </ul>
+    </nav>
+</header>

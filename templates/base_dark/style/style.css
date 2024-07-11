@@ -1,0 +1,148 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #FFF; /* White text */
+    background-color: #000; /* Black background */
+    line-height: 1.6;
+}
+
+header {
+    background-color: #333; /* Dark gray header */
+    color: #fff; /* White text in header */
+    padding: 10px 0;
+}
+
+header nav ul {
+    list-style: none;
+    text-align: center;
+}
+
+header nav ul li {
+    display: inline-block;
+    margin: 0 10px;
+    position: relative; /* Added for dropdown */
+}
+
+header nav ul li a {
+    color: #fff; /* White text for links */
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+header nav ul li a:hover {
+    background-color: #555; /* Darker gray background on hover */
+    color: #fff; /* White text on hover */
+}
+
+a {
+    color: #FFD700; /* Gold color for links */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #FFA500; /* Orange on hover */
+}
+
+footer {
+    background-color: #333; /* Dark gray footer */
+    color: #fff; /* White text in footer */
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+    display: flex;
+    justify-content: center;
+}
+
+footer ul li {
+    margin: 0 10px;
+}
+
+footer ul li a {
+    color: #fff; /* White text for social links */
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+footer ul li a:hover {
+    background-color: #555; /* Darker gray background on hover */
+    color: #fff; /* White text on hover */
+}
+
+footer ul li a i {
+    margin-right: 5px;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 20px 0;
+}
+
+p {
+    margin: 10px 0;
+}
+
+/* Dropdown Menu */
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #333; /* Dark gray dropdown */
+    color: #fff;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    text-align: left;
+    padding: 10px 0;
+}
+
+.dropdown-item {
+    color: #fff;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-item:hover {
+    background-color: #555; /* Darker gray on hover */
+    color: #fff;
+}
+
+/* Slider */
+.slider {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    position: relative;
+}
+
+.slider img {
+    width: 100%;
+    height: auto;
+    display: block;
+}

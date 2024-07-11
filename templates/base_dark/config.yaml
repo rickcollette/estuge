@@ -1,0 +1,15 @@
+SiteName: "MySite"
+SiteDescription: "This is my site"
+SiteTitle: "MySite"
+FontSet: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" # FontAwesome CDN
+
+# Slider Info
+NumberOfSlides: 3
+SlideChangeInterval: 3000 # Milliseconds
+SlideFolder: "images/slides"
+SlidePrefix: "slide_" # Results in slide_[1...${NumberOfSlides}].jpg
+
+# Footer Info
+SocialX: "https://twitter.com/youraccount"
+SocialFB: "https://facebook.com/youraccount"
+SocialYT: "https://youtube.com/youraccount"
