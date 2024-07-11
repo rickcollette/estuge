@@ -41,7 +41,7 @@ Manual:
 man estuge
 ```
 
-More Help: https://govamp.org 
+More Help: http://govamp.org/estuge
 
 # Documentation
 
