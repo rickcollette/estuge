@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{.Config.SiteTitle}}</title>
+    <meta name="description" content="{{.Config.SiteDescription}}">
+    <link rel="stylesheet" type="text/css" href="/style/style.css">
+    <link rel="stylesheet" href="{{.Config.FontSet}}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+</head>
+<body>
+    {{.Header}}
+    <div class="container">
+        <div class="slider"></div> <!-- Slider container -->
+        {{.Content}}
+    </div>
+    {{.Footer}}
+    <script src="/js/main.js"></script>
+</body>
+</html>
