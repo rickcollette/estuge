@@ -11,7 +11,9 @@
 <body>
     {{.Header}}
     <div class="container">
+        {{if .Config.SliderEnabled}}
         <div class="slider"></div> <!-- Slider container -->
+        {{end}}
         {{.Content}}
     </div>
     {{.Footer}}

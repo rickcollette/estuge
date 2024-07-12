@@ -28,6 +28,8 @@ type Config struct {
     SocialX             string `yaml:"SocialX"`
     SocialFB            string `yaml:"SocialFB"`
     SocialYT            string `yaml:"SocialYT"`
+    SocialEnabled       bool   `yaml:"SocialEnabled"`
+    SliderEnabled       bool   `yaml:"SliderEnabled"`
 }
 
 type Page struct {

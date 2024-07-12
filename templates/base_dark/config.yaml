@@ -3,6 +3,10 @@ SiteDescription: "This is my site"
 SiteTitle: "MySite"
 FontSet: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" # FontAwesome CDN
 
+# Modules 
+SocialEnabled: true
+SliderEnabled: true
+
 # Slider Info
 NumberOfSlides: 3
 SlideChangeInterval: 3000 # Milliseconds

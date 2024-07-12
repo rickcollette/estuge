@@ -1,5 +1,5 @@
 APP_NAME := estuge
-VERSION := 1.1.1
+VERSION := 1.1.3
 BINARY := $(APP_NAME)
 MAINTAINER := Rick Collette <megalith@root.sh>
 DESCRIPTION := Lightweight markdown to HTML static website generator
